@@ -1,0 +1,10 @@
+@import "../../sass/config.scss";
+
+.recipes-list {
+  @include flex(row, space-around, center, wrap);
+  list-style: none;
+  margin: 1rem 3rem;
+  padding: 1rem;
+  border-radius: 16px;
+  gap: 4rem 2rem;
+}

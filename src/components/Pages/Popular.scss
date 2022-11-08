@@ -1,0 +1,10 @@
+@import "../../sass/config.scss";
+.title {
+  background-color: $bg-secondary;
+  text-align: center;
+  font-size: 2.2rem;
+  text-shadow: 1px 1px 2px $text-primary;
+  color: $bg-primary;
+  padding: 1rem 0;
+  width: 100%;
+}

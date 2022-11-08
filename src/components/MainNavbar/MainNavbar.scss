@@ -1,0 +1,15 @@
+@import "../../sass/config.scss";
+
+a {
+  all: unset;
+  cursor: pointer;
+  transition: all 250ms;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+a:hover,
+a:active {
+  color: $bg-secondary;
+  transform: scale(1.2);
+}

@@ -1,0 +1,40 @@
+@import "../../sass/config.scss";
+
+.overlay {
+  position: fixed;
+  top: 91px;
+  left: 0;
+  right: -100%;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 20;
+}
+
+.sidebar {
+  @include flex(column, center, center, nowrap);
+  position: fixed;
+  background-color: $bg-primary;
+  padding: 1rem;
+  right: -300px;
+  top: 91px;
+  width: 14rem;
+  min-height: 20vh;
+  border-radius: 0.4rem;
+  gap: 1.4rem;
+  z-index: 20;
+  box-shadow: 0px 0px 6px $text-primary;
+  transition: all 450ms ease-in-out;
+  transform: scale(0);
+
+  &--toggle {
+    right: 0;
+    transform: scale(1);
+  }
+
+  a {
+    font-size: 1.1rem;
+    width: 100%;
+    text-align: center;
+  }
+}
