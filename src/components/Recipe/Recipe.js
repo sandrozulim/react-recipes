@@ -13,6 +13,7 @@ function Recipe({ recipe }) {
   const closeDetailHandler = () => {
     setDetailsIsOpen(false);
   };
+  //Jel mi tribaju uopce ove detailHandler funkcije? Probat sa direktno setDetailIsOpen!
 
   return (
     <>

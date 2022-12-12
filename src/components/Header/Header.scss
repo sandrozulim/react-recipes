@@ -28,4 +28,20 @@
       color: abstracts.$text-secondary;
     }
   }
+
+  &__hamburger {
+    border: none;
+    padding: 0.2rem 0.2rem;
+    font-size: 1.7rem;
+    background-color: abstracts.$bg-primary;
+    visibility: hidden;
+    &:hover,
+    &:active {
+      color: abstracts.$bg-secondary;
+    }
+    @media screen and (max-width: 900px) {
+      visibility: visible;
+      margin-left: auto;
+    }
+  }
 }

@@ -14,7 +14,7 @@ function InputField({
       <div className={`input-field ${className}`}>
         <span className="input-field__icon">{icon}</span>
         <input
-          className={`input-field ${className}`}
+          className="input-field__input"
           type={type}
           placeholder={placeholder}
           value={value}

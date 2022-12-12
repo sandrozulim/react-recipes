@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import MainNavbar from "../MainNavbar/MainNavbar";
-import SecondaryNavbar from "../SecondaryNavbar/SecondaryNavbar";
 import Sidebar from "../Sidebar/Sidebar";
+import PrimaryButton from "../UI/PrimaryButton";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { GrClose } from "react-icons/gr";
 import "./Header.scss";
 
-function Header({ setSearchInputValue }) {
+function Header() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
   const navigationList = [
     { name: "home", path: "/" },
+    { name: "search recipes", path: "/search" },
     { name: "popular", path: "/popular" },
-    { name: "dummy", path: "/dummy" },
+    { name: "favorites", path: "/favorites" },
   ];
 
   return (
@@ -23,11 +26,12 @@ function Header({ setSearchInputValue }) {
 
         <MainNavbar navigationList={navigationList} />
 
-        <SecondaryNavbar
-          setSearchInputValue={setSearchInputValue}
-          setToggleSidebar={setToggleSidebar}
-          toggleSidebar={toggleSidebar}
-        />
+        <PrimaryButton
+          className="header__hamburger"
+          onClick={() => setToggleSidebar(!toggleSidebar)}
+        >
+          {toggleSidebar ? <GrClose /> : <GiHamburgerMenu />}
+        </PrimaryButton>
       </header>
 
       <Sidebar

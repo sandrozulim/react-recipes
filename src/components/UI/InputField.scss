@@ -2,10 +2,10 @@
 
 .input-field {
   @include abstracts.flex(row, center, center, nowrap);
-  border-bottom: 1px solid abstracts.$bg-tertiary;
+  border-bottom: 2px solid abstracts.$bg-tertiary;
   max-width: 15rem;
 
-  input {
+  &__input {
     font-family: inherit;
     font-size: 1.2rem;
     border: none;
