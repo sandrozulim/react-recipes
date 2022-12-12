@@ -1,15 +1,30 @@
-@import "../../sass/config.scss";
+@use "../../sass/abstracts";
 
-a {
-  all: unset;
-  cursor: pointer;
-  transition: all 250ms;
+.main-nav {
+  @include abstracts.flex(row, flex-start, center, nowrap);
+  gap: 2rem;
   font-weight: bold;
-  text-transform: uppercase;
-}
+  flex-grow: 1;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 
-a:hover,
-a:active {
-  color: $bg-secondary;
-  transform: scale(1.2);
+  a {
+    all: unset;
+    cursor: pointer;
+    transition: all 250ms;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  a:hover {
+    color: abstracts.$bg-secondary;
+    transform: scale(1.2);
+  }
+
+  .active {
+    color: abstracts.$bg-secondary;
+    transform: scale(1.2);
+    border-bottom: 1px solid abstracts.$bg-secondary;
+  }
 }

@@ -1,0 +1,36 @@
+@use "../../sass/abstracts";
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: abstracts.$bg-dark-transparent;
+  backdrop-filter: blur(4px);
+  z-index: 20;
+}
+
+.modal {
+  position: fixed;
+  left: 15%;
+  top: 20%;
+  width: 70%;
+  height: 70%;
+  background-color: abstracts.$bg-primary;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  animation: slide-down 300ms ease-out forwards;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-3rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -2,15 +2,18 @@ import React from "react";
 import MainNavbar from "../MainNavbar/MainNavbar";
 import "./Sidebar.scss";
 
-function Sidebar({ toggleSidebar, setToggleSidebar }) {
+function Sidebar({ toggleSidebar, setToggleSidebar, navigationList }) {
   return (
     <>
       {toggleSidebar && (
-        <div onClick={() => setToggleSidebar(false)} className="overlay"></div>
+        <div
+          onClick={() => setToggleSidebar(false)}
+          className="sidebar-backdrop"
+        ></div>
       )}
-
       <MainNavbar
-        classes={` ${!toggleSidebar ? "sidebar" : "sidebar sidebar--toggle"}`}
+        navigationList={navigationList}
+        className={`${!toggleSidebar ? "sidebar" : "sidebar sidebar--toggle"}`}
       />
     </>
   );

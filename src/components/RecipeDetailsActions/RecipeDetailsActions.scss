@@ -1,0 +1,37 @@
+@use "../../sass/abstracts";
+
+.actions {
+  @include abstracts.flex(row, space-around, center, wrap);
+  background-color: abstracts.$bg-tertiary;
+  width: 100%;
+  padding: 0.8rem;
+  gap: 2rem;
+  color: abstracts.$bg-primary;
+  font-size: 1.2rem;
+
+  span {
+    @include abstracts.flex(row, center, center, nowrap);
+    gap: 0.2rem;
+  }
+
+  &__servings {
+    @include abstracts.flex(row, center, center, nowrap);
+    gap: 0.4rem;
+
+    &-btn {
+      padding: 0.3rem;
+      border: none;
+      background-color: abstracts.$bg-secondary;
+      font-size: 1.4rem;
+    }
+  }
+
+  &__save-btn {
+    background-color: abstracts.$bg-secondary;
+    transition: transform 250ms;
+  }
+
+  &__save-btn:active {
+    transform: scale(0.9);
+  }
+}

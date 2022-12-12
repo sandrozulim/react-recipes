@@ -1,0 +1,11 @@
+@use "../../sass/abstracts";
+
+.page-title {
+  background-color: abstracts.$bg-tertiary;
+  text-align: center;
+  font-size: 2.2rem;
+  text-shadow: 1px 1px 2px abstracts.$text-primary;
+  color: abstracts.$bg-primary;
+  padding: 0.6rem 0;
+  width: 100%;
+}

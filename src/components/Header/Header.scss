@@ -1,66 +1,31 @@
-@import "../../sass/config.scss";
+@use "../../sass/abstracts";
 
 .header {
-  @include flex(row, flex-start, center, wrap);
-  background-color: $bg-primary;
+  @include abstracts.flex(row, flex-start, center, nowrap);
+  background-color: abstracts.$bg-primary;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 2rem 5rem;
-  column-gap: 4rem;
+  height: 7rem;
+  padding: 2rem 3rem;
+  column-gap: 3rem;
   z-index: 20;
   @media screen and (max-width: 900px) {
     padding: 2rem 1rem;
+    column-gap: 0;
   }
 
   &__title {
-    border-bottom: 1px solid $text-secondary;
-    text-shadow: 0px 0px 0px $text-primary;
+    border-bottom: 1px solid abstracts.$text-secondary;
+    text-shadow: 0px 0px 0px abstracts.$text-primary;
 
     h1 {
       display: inline;
     }
 
-    &--highlighted {
-      color: $text-secondary;
-    }
-  }
-
-  &__main-nav {
-    @include flex(row, flex-start, center, nowrap);
-    gap: 2rem;
-    font-weight: bold;
-    flex-grow: 1;
-    @media screen and (max-width: 900px) {
-      display: none;
-    }
-  }
-
-  &__secondary-nav {
-    @include flex(row, flex-end, center, nowrap);
-    position: relative;
-    gap: 1.4rem;
-    @media screen and (max-width: 900px) {
-      margin-left: auto;
-    }
-
-    .hamburger {
-      visibility: hidden;
-      @media screen and (max-width: 900px) {
-        visibility: visible;
-      }
-    }
-
-    button {
-      @include flex(row, center, center, nowrap);
-      cursor: pointer;
-      border: none;
-      outline: none;
-      color: inherit;
-      background-color: unset;
-      padding: 0.2rem 0.2rem;
-      font-size: 1.7rem;
+    &--green {
+      color: abstracts.$text-secondary;
     }
   }
 }

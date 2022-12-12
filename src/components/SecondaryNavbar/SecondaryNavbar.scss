@@ -1,0 +1,45 @@
+@use "../../sass/abstracts";
+
+.secondary-nav {
+  @include abstracts.flex(row, flex-end, center, nowrap);
+  position: relative;
+  gap: 1rem;
+  @media screen and (max-width: 900px) {
+    margin-left: auto;
+  }
+
+  &__btn {
+    border: none;
+    padding: 0.2rem 0.2rem;
+    font-size: 1.7rem;
+    background-color: abstracts.$bg-primary;
+    &:hover,
+    &:active {
+      color: abstracts.$bg-secondary;
+    }
+  }
+
+  &__hamburger {
+    visibility: hidden;
+    @media screen and (max-width: 900px) {
+      visibility: visible;
+    }
+  }
+
+  &__link {
+    @include abstracts.flex(row, center, center, nowrap);
+    padding: 0.2rem 0.2rem;
+    color: abstracts.$text-primary;
+    font-size: 1.7rem;
+    transition: all 250ms ease-in-out;
+    &:hover,
+    &:active {
+      color: abstracts.$bg-secondary;
+    }
+  }
+
+  &__search {
+    width: 100%;
+    order: -1;
+  }
+}

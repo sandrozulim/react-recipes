@@ -5,7 +5,7 @@ import "./Home.scss";
 function Home() {
   return (
     <section className="main-image">
-      {<img src={food} alt="food on the table" />};
+      {<img src={food} alt="food on the table" />}
     </section>
   );
 }

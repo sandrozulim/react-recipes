@@ -1,5 +1,5 @@
+@use "./sass/abstracts";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-@import "./sass/config.scss";
 
 html {
   -webkit-box-sizing: border-box;
@@ -9,6 +9,10 @@ html {
 
   @media screen and (max-width: 1200px) {
     font-size: 14px;
+  }
+
+  @media screen and (max-width: 700px) {
+    font-size: 12px;
   }
 }
 
@@ -20,13 +24,13 @@ html {
 }
 
 body {
+  background-color: abstracts.$bg-primary;
   margin: 0;
   padding: 0;
-  background-color: $bg-primary;
-  color: $text-primary;
+  color: abstracts.$text-primary;
 }
 
 main {
-  padding: 2rem 0;
-  margin-top: 91px;
+  padding: 0;
+  margin-top: 110px;
 }
