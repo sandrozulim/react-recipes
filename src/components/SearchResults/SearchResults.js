@@ -1,42 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import PageTitle from "../PageTitle/PageTitle";
 import RecipesList from "../RecipesList/RecipesList";
 import Spinner from "../UI/Spinner";
-import { FaSistrix } from "react-icons/fa";
 import InputField from "../UI/InputField";
-import { BASE_API_URL, API_KEY } from "../../constants/constants";
+import PrimaryButton from "../UI/PrimaryButton";
 import { getData } from "../../http/getData.js";
+import { apiUrlBuilder } from "../../utilites/generic.utils";
+import { FaSistrix } from "react-icons/fa";
 import "./SearchResults.scss";
 
 function SearchResults() {
   const [recipes, setRecipes] = useState([]);
   const [spinnerIsShown, setSpinnerIsShown] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const searchInputRef = useRef(null);
 
-  //Refaktorirat useEffect!
-  useEffect(() => {
-    if (inputValue === "") return;
-    const getRecipes = async () => {
-      const url = `${BASE_API_URL}complexSearch?query=${inputValue}&addRecipeInformation=true&fillIngredients=true&apiKey=${API_KEY}`;
-      setSpinnerIsShown(true);
-      const { results } = await getData(url);
-      setRecipes(results);
-      setSpinnerIsShown(false);
-    };
-    getRecipes();
+  const getRecipes = useCallback(async () => {
+    setSpinnerIsShown(true);
+    const url = apiUrlBuilder(
+      `complexSearch?query=${inputValue}&addRecipeInformation=true&fillIngredients=true`
+    );
+    const { results } = await getData(url);
+    setRecipes(results);
+    setSpinnerIsShown(false);
   }, [inputValue]);
+
+  useEffect(() => {
+    searchInputRef.current.focus();
+    getRecipes();
+  }, [getRecipes]);
+
+  const submitHandler = () => {
+    const { value } = searchInputRef.current;
+    setInputValue(value);
+  };
 
   return (
     <>
-      <PageTitle title="Search results" />
-      <InputField
-        className="search-input"
-        type="text"
-        placeholder="Search here..."
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        icon={<FaSistrix />}
-      />
+      <PageTitle title="Search recipes" />
+      <div className="search-input">
+        <InputField
+          ref={searchInputRef}
+          className="search-input__input"
+          type="text"
+          placeholder="Search here..."
+          icon={<FaSistrix />}
+        />
+        <PrimaryButton onClick={submitHandler} className="search-input__btn">
+          Search
+        </PrimaryButton>
+      </div>
       {spinnerIsShown && <Spinner />}
 
       <RecipesList data={recipes} />

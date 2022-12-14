@@ -1,5 +1,16 @@
 @use "../../sass/abstracts";
 
 .search-input {
-  margin: 0 auto;
+  @include abstracts.flex(column, center, center, nowrap);
+  gap: 1rem;
+
+  &__input {
+  }
+
+  &__btn {
+    border: none;
+    background-color: abstracts.$bg-secondary;
+    border-radius: 12px;
+    color: white;
+  }
 }

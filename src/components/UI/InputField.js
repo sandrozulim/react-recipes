@@ -1,14 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./InputField.scss";
 
-function InputField({
-  className = "",
-  type,
-  placeholder,
-  value,
-  onChange,
-  icon,
-}) {
+const InputField = forwardRef((props, ref) => {
+  const { className = "", type, placeholder, value, onChange, icon } = props;
   return (
     <>
       <div className={`input-field ${className}`}>
@@ -19,10 +13,11 @@ function InputField({
           placeholder={placeholder}
           value={value}
           onChange={onChange}
+          ref={ref}
         />
       </div>
     </>
   );
-}
+});
 
 export default InputField;
