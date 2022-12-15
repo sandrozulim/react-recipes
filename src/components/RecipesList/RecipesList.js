@@ -3,9 +3,9 @@ import Recipe from "../Recipe/Recipe";
 import "./RecipesList.scss";
 
 function RecipesList({ data }) {
-  const recipes = data.map((recipe) => {
-    return <Recipe key={recipe.id} recipe={recipe} />;
-  });
+  const recipes = data.map((recipe) => (
+    <Recipe key={recipe.id} recipe={recipe} />
+  ));
 
   return <ul className="recipes-list">{recipes}</ul>;
 }

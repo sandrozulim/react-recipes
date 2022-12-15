@@ -1,1 +1,6 @@
 @use "../../sass/abstracts";
+
+.message {
+  color: abstracts.$bg-secondary;
+  text-align: center;
+}

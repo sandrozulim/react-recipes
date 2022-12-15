@@ -31,7 +31,8 @@ function SearchResults() {
     getRecipes();
   }, [getRecipes]);
 
-  const submitHandler = () => {
+  const submitHandler = (e) => {
+    e.preventDefault();
     const { value } = searchInputRef.current;
     setInputValue(value);
   };

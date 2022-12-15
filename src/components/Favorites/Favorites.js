@@ -5,12 +5,18 @@ import RecipesList from "../RecipesList/RecipesList";
 import "./Favorites.scss";
 
 function Favorites() {
-  const ctx = useContext(FavoritesContext);
+  const { favorites } = useContext(FavoritesContext);
+
+  const message = (
+    <h2 className="message">
+      No saved recipes! Please find a recipe you like and save it.
+    </h2>
+  );
 
   return (
     <>
       <PageTitle title="Favorites" />
-      <RecipesList data={ctx.favorites} />
+      {favorites.length > 0 ? <RecipesList data={favorites} /> : message}
     </>
   );
 }
