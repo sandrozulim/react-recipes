@@ -16,6 +16,7 @@ function SearchResults() {
   const searchInputRef = useRef(null);
 
   const getRecipes = useCallback(async () => {
+    if (inputValue === "") return;
     setSpinnerIsShown(true);
     const url = apiUrlBuilder(
       `complexSearch?query=${inputValue}&addRecipeInformation=true&fillIngredients=true`
@@ -38,7 +39,7 @@ function SearchResults() {
   return (
     <>
       <PageTitle title="Search recipes" />
-      <div className="search-input">
+      <form className="search-form">
         <InputField
           ref={searchInputRef}
           className="search-input__input"
@@ -46,12 +47,11 @@ function SearchResults() {
           placeholder="Search here..."
           icon={<FaSistrix />}
         />
-        <PrimaryButton onClick={submitHandler} className="search-input__btn">
+        <PrimaryButton onClick={submitHandler} className="search-form__btn">
           Search
         </PrimaryButton>
-      </div>
+      </form>
       {spinnerIsShown && <Spinner />}
-
       <RecipesList data={recipes} />
     </>
   );

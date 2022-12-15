@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MainNavbar from "../MainNavbar/MainNavbar";
+import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import PrimaryButton from "../UI/PrimaryButton";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -24,7 +24,7 @@ function Header() {
           <h1 className="header__title--green">Recipes</h1>
         </div>
 
-        <MainNavbar navigationList={navigationList} />
+        <Navbar navigationList={navigationList} />
 
         <PrimaryButton
           className="header__hamburger"

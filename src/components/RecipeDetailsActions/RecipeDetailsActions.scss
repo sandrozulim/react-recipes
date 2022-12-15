@@ -17,21 +17,14 @@
   &__servings {
     @include abstracts.flex(row, center, center, nowrap);
     gap: 0.4rem;
-
-    &-btn {
-      padding: 0.3rem;
-      border: none;
-      background-color: abstracts.$bg-secondary;
-      font-size: 1.4rem;
-    }
   }
 
-  &__save-btn {
+  &__btn {
     background-color: abstracts.$bg-secondary;
-    transition: transform 250ms;
-  }
+    transition: background-color 250ms;
 
-  &__save-btn:active {
-    transform: scale(0.9);
+    &:hover {
+      background-color: abstracts.$text-secondary;
+    }
   }
 }

@@ -29,7 +29,7 @@ function RecipeDetailsActions({ recipe, updateIngredients }) {
   const saveButton = ctx.favorites.find((item) => item.id === recipe.id) ? (
     <PrimaryButton
       onClick={() => ctx.removeFavoritesHandler(recipe.id)}
-      className="actions__save-btn"
+      className="actions__btn"
     >
       <AiFillHeart />
       Remove
@@ -37,7 +37,7 @@ function RecipeDetailsActions({ recipe, updateIngredients }) {
   ) : (
     <PrimaryButton
       onClick={() => ctx.addFavoritesHandler(recipe)}
-      className="actions__save-btn"
+      className="actions__btn"
     >
       <AiFillHeart />
       Save
@@ -55,21 +55,15 @@ function RecipeDetailsActions({ recipe, updateIngredients }) {
       <div className="actions__servings">
         <BsFillPeopleFill />
         {servings}
-        <PrimaryButton
-          className="actions__servings-btn"
-          onClick={incrementServings}
-        >
+
+        <PrimaryButton className="actions__btn" onClick={incrementServings}>
           <AiOutlinePlus />
         </PrimaryButton>
 
-        <PrimaryButton
-          className="actions__servings-btn"
-          onClick={decrementServings}
-        >
+        <PrimaryButton className="actions__btn" onClick={decrementServings}>
           <AiOutlineMinus />
         </PrimaryButton>
       </div>
-
       {saveButton}
     </div>
   );

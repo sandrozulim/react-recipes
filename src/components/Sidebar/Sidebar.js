@@ -1,5 +1,5 @@
 import React from "react";
-import MainNavbar from "../MainNavbar/MainNavbar";
+import Navbar from "../Navbar/Navbar";
 import "./Sidebar.scss";
 
 function Sidebar({ toggleSidebar, setToggleSidebar, navigationList }) {
@@ -11,7 +11,7 @@ function Sidebar({ toggleSidebar, setToggleSidebar, navigationList }) {
           className="sidebar-backdrop"
         ></div>
       )}
-      <MainNavbar
+      <Navbar
         navigationList={navigationList}
         className={`${!toggleSidebar ? "sidebar" : "sidebar sidebar--toggle"}`}
       />

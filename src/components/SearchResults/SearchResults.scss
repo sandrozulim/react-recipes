@@ -1,6 +1,6 @@
 @use "../../sass/abstracts";
 
-.search-input {
+.search-form {
   @include abstracts.flex(column, center, center, nowrap);
   gap: 1rem;
 
@@ -9,8 +9,13 @@
 
   &__btn {
     border: none;
-    background-color: abstracts.$bg-secondary;
-    border-radius: 12px;
+    background-color: abstracts.$bg-tertiary;
+    border-radius: 16px;
     color: white;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+      background-color: abstracts.$bg-secondary;
+    }
   }
 }

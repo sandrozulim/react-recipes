@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./MainNavbar.scss";
+import "./Navbar.scss";
 
-function MainNavbar({ navigationList, className = "" }) {
+function Navbar({ navigationList, className = "" }) {
   const content = navigationList.map((item) => (
     <NavLink key={item.name} to={item.path}>
       {item.name}
@@ -12,4 +12,4 @@ function MainNavbar({ navigationList, className = "" }) {
   return <nav className={`main-nav ${className}`}>{content}</nav>;
 }
 
-export default MainNavbar;
+export default Navbar;
