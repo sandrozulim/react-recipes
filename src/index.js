@@ -6,7 +6,7 @@ import "./index.scss";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename="/react-recipes">
+  <BrowserRouter>
     <App />
   </BrowserRouter>
 );
