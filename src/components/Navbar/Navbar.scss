@@ -1,23 +1,24 @@
 @use "../../sass/abstracts";
 
-.main-nav {
+.nav {
   @include abstracts.flex(row, flex-start, center, nowrap);
-  gap: 2rem;
+  gap: 3rem;
+  padding: 0;
   font-weight: bold;
-  flex-grow: 1;
-  @media screen and (max-width: 900px) {
-    display: none;
-  }
 
-  a {
-    all: unset;
+  &__item {
     cursor: pointer;
+    list-style-type: none;
     transition: all 250ms;
     font-weight: bold;
     text-transform: uppercase;
+
+    a {
+      all: unset;
+    }
   }
 
-  a:hover {
+  &__item:hover {
     color: abstracts.$bg-secondary;
     transform: scale(1.2);
   }

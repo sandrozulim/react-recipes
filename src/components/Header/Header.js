@@ -24,7 +24,7 @@ function Header() {
           <h1 className="header__title--green">Recipes</h1>
         </div>
 
-        <Navbar navigationList={navigationList} />
+        <Navbar className="header__nav" navigationList={navigationList} />
 
         <PrimaryButton
           className="header__hamburger"

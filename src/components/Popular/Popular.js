@@ -3,22 +3,26 @@ import PageTitle from "../PageTitle/PageTitle";
 import RecipesList from "../RecipesList/RecipesList";
 import PrimaryButton from "../UI/PrimaryButton";
 import Spinner from "../UI/Spinner";
+import Pagination from "../UI/Pagination";
 import { getData } from "../../http/getData";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
+import { POPULAR_ENDPOINT } from "../../constants/api.constants";
+import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
 import "./Popular.scss";
 
 function Popular() {
   const [spinnerIsShown, setSpinnerIsShown] = useState(false);
-  const [recipesData, setRecipesData] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const [diet, setDiet] = useState("no diet");
+  const [page, setPage] = useState(1);
 
   const getRecipes = useCallback(async () => {
     setSpinnerIsShown(true);
     const url = apiUrlBuilder(
-      `random?number=18&tags=${diet === "no diet" ? "" : diet}`
+      `${POPULAR_ENDPOINT}&tags=${diet === "no diet" ? "" : diet}`
     );
     const data = await getData(url);
-    setRecipesData(data.recipes);
+    setRecipes(data.recipes);
     setSpinnerIsShown(false);
   }, [diet]);
 
@@ -47,10 +51,24 @@ function Popular() {
 
   return (
     <>
-      <PageTitle title="Popular" />
-      <div className="diet-options">{dietContent}</div>
-      {spinnerIsShown && <Spinner />}
-      <RecipesList data={recipesData} />
+      <section>
+        <PageTitle title="Popular" />
+
+        <div className="diet-options">{dietContent}</div>
+
+        {spinnerIsShown && <Spinner />}
+
+        <RecipesList
+          data={recipes.slice(
+            page * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
+            page * ITEMS_PER_PAGE
+          )}
+        />
+
+        {recipes.length > ITEMS_PER_PAGE && (
+          <Pagination page={page} setPage={setPage} dataArray={recipes} />
+        )}
+      </section>
     </>
   );
 }

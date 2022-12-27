@@ -1,7 +1,7 @@
 @use "../../sass/abstracts";
 
 .header {
-  @include abstracts.flex(row, flex-start, center, nowrap);
+  @include abstracts.flex(row, space-between, center, nowrap);
   background-color: abstracts.$bg-primary;
   position: fixed;
   top: 0;
@@ -11,7 +11,7 @@
   padding: 2rem 3rem;
   column-gap: 3rem;
   z-index: 20;
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 800px) {
     padding: 2rem 1rem;
   }
 
@@ -28,19 +28,25 @@
     }
   }
 
+  &__nav {
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+  }
+
   &__hamburger {
     border: none;
     padding: 0.2rem 0.2rem;
     font-size: 1.7rem;
     background-color: abstracts.$bg-primary;
-    visibility: hidden;
+    display: none;
     &:hover,
     &:active {
       color: abstracts.$bg-secondary;
     }
-    @media screen and (max-width: 900px) {
-      visibility: visible;
+    @media screen and (max-width: 800px) {
       margin-left: auto;
+      display: flex;
     }
   }
 }

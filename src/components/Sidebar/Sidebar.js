@@ -12,6 +12,7 @@ function Sidebar({ toggleSidebar, setToggleSidebar, navigationList }) {
         ></div>
       )}
       <Navbar
+        onClick={() => setToggleSidebar(false)}
         navigationList={navigationList}
         className={`${!toggleSidebar ? "sidebar" : "sidebar sidebar--toggle"}`}
       />
