@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import PageTitle from "../PageTitle/PageTitle";
 import RecipesList from "../RecipesList/RecipesList";
-import PrimaryButton from "../UI/PrimaryButton";
 import Spinner from "../UI/Spinner";
 import Pagination from "../UI/Pagination";
+import FilterTags from "../UI/FilterTags";
+import PrimaryButton from "../UI/PrimaryButton";
+import { BsFilter } from "react-icons/bs";
 import { getData } from "../../http/getData";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
 import { POPULAR_ENDPOINT } from "../../constants/api.constants";
@@ -11,50 +13,86 @@ import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
 import "./Popular.scss";
 
 function Popular() {
-  const [spinnerIsShown, setSpinnerIsShown] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const [diet, setDiet] = useState("no diet");
+  const [dietFilter, setDietFilter] = useState("");
+  const [mealTypeFilter, setMealTypeFilter] = useState("");
+  const [toggleFilters, setToggleFilters] = useState(false);
   const [page, setPage] = useState(1);
+  const [spinnerIsShown, setSpinnerIsShown] = useState(false);
+
+  const diets = ["gluten free", "vegetarian", "vegan"];
+  const mealTypes = [
+    "main course",
+    "side dish",
+    "dessert",
+    "appetizer",
+    "snack",
+    "fingerfood",
+    "marinade",
+    "sauce",
+  ];
 
   const getRecipes = useCallback(async () => {
     setSpinnerIsShown(true);
     const url = apiUrlBuilder(
-      `${POPULAR_ENDPOINT}&tags=${diet === "no diet" ? "" : diet}`
+      `${POPULAR_ENDPOINT}&tags=${(dietFilter, mealTypeFilter)}`
     );
     const data = await getData(url);
     setRecipes(data.recipes);
     setSpinnerIsShown(false);
-  }, [diet]);
+  }, [dietFilter, mealTypeFilter]);
 
   useEffect(() => {
     getRecipes();
-  }, [diet, getRecipes]);
+  }, [getRecipes]);
 
-  const changeDietHandler = (e) => {
-    setDiet(e.target.innerText);
+  const resetFilterHandler = () => {
+    setDietFilter("");
+    setMealTypeFilter("");
   };
-
-  const diets = ["no diet", "gluten free", "vegetarian", "vegan"];
-  const dietContent = diets.map((item, index) => {
-    return (
-      <PrimaryButton
-        key={index}
-        className={`diet-options__btn ${
-          diet === item ? "diet-options__btn--active" : ""
-        }`}
-        onClick={changeDietHandler}
-      >
-        {item}
-      </PrimaryButton>
-    );
-  });
 
   return (
     <>
       <section>
         <PageTitle title="Popular" />
 
-        <div className="diet-options">{dietContent}</div>
+        <div className="filter-actions">
+          <PrimaryButton
+            className="filter-actions__btn"
+            onClick={() => setToggleFilters(!toggleFilters)}
+          >
+            Filters
+            <BsFilter className="filter-actions__btn-icon" />
+          </PrimaryButton>
+
+          {toggleFilters && (
+            <PrimaryButton
+              className="filter-actions__btn"
+              onClick={resetFilterHandler}
+            >
+              clear filters
+            </PrimaryButton>
+          )}
+        </div>
+
+        {toggleFilters && (
+          <div className="tags">
+            <FilterTags
+              title="diets"
+              tagList={diets}
+              state={dietFilter}
+              setState={setDietFilter}
+              setToggleFilters={setToggleFilters}
+            />
+            <FilterTags
+              title="meal type"
+              tagList={mealTypes}
+              state={mealTypeFilter}
+              setState={setMealTypeFilter}
+              setToggleFilters={setToggleFilters}
+            />
+          </div>
+        )}
 
         {spinnerIsShown && <Spinner />}
 
