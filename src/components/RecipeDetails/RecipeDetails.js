@@ -30,12 +30,12 @@ function RecipeDetails({ recipe, onCloseHandler }) {
       if (operator === "plus") {
         return {
           ...ingredient,
-          amount: ingredient.amount + perPerson,
+          amount: Math.ceil(ingredient.amount + perPerson),
         };
       } else {
         return {
           ...ingredient,
-          amount: ingredient.amount - perPerson,
+          amount: Math.floor(ingredient.amount - perPerson),
         };
       }
     });
