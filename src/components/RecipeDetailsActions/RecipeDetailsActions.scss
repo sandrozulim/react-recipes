@@ -22,6 +22,7 @@
   &__btn {
     background-color: abstracts.$bg-secondary;
     transition: background-color 250ms;
+    box-shadow: none;
 
     &:hover {
       background-color: abstracts.$text-secondary;

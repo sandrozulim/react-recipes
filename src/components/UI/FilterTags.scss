@@ -1,0 +1,31 @@
+@use "../../sass/abstracts";
+
+.filter-options {
+  @include abstracts.flex(column, center, center, wrap);
+  list-style-type: none;
+  padding: 0;
+  display: inline-flex;
+  gap: 0.5rem;
+
+  &__title {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid black;
+    padding: 0 0.4rem;
+  }
+
+  &__btn {
+    border: none;
+    transition: all 250ms ease;
+  }
+
+  &__btn:hover {
+    color: abstracts.$bg-secondary;
+    transform: scale(1.1);
+  }
+
+  &__btn--active {
+    color: abstracts.$bg-secondary;
+  }
+}
