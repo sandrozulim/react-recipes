@@ -1,6 +1,7 @@
 # React recipes 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Simple app for searching recipes by getting data from spoonacular API.
+
 
 ## Link to demo
 
