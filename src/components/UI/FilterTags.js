@@ -10,9 +10,8 @@ function FilterTags({ tagList, state, setState, title, setToggleFilters }) {
 
   const tags = tagList.map((item, index) => {
     return (
-      <li>
+      <li key={index}>
         <PrimaryButton
-          key={index}
           className={`filter-options__btn ${
             state === item ? "filter-options__btn--active" : ""
           }`}

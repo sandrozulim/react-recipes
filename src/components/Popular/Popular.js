@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import PageTitle from "../PageTitle/PageTitle";
 import RecipesList from "../RecipesList/RecipesList";
 import Spinner from "../UI/Spinner";
@@ -6,19 +6,30 @@ import Pagination from "../UI/Pagination";
 import FilterTags from "../UI/FilterTags";
 import PrimaryButton from "../UI/PrimaryButton";
 import { BsFilter } from "react-icons/bs";
-import { getData } from "../../http/getData";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
 import { POPULAR_ENDPOINT } from "../../constants/api.constants";
 import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
+import useGetRecipes from "../../hooks/use.get.recipes";
 import "./Popular.scss";
 
 function Popular() {
-  const [recipes, setRecipes] = useState([]);
   const [dietFilter, setDietFilter] = useState("");
   const [mealTypeFilter, setMealTypeFilter] = useState("");
   const [toggleFilters, setToggleFilters] = useState(false);
   const [page, setPage] = useState(1);
-  const [spinnerIsShown, setSpinnerIsShown] = useState(false);
+
+  const url = apiUrlBuilder(
+    `${POPULAR_ENDPOINT}&tags=${
+      dietFilter ? dietFilter + "," + mealTypeFilter : mealTypeFilter
+    }`
+  );
+
+  const { recipes, spinnerIsShown } = useGetRecipes(url);
+
+  const resetFilterHandler = () => {
+    setDietFilter("");
+    setMealTypeFilter("");
+  };
 
   const diets = ["gluten free", "vegetarian", "vegan"];
   const mealTypes = [
@@ -32,30 +43,10 @@ function Popular() {
     "sauce",
   ];
 
-  const getRecipes = useCallback(async () => {
-    setSpinnerIsShown(true);
-    const url = apiUrlBuilder(
-      `${POPULAR_ENDPOINT}&tags=${(dietFilter, mealTypeFilter)}`
-    );
-    const data = await getData(url);
-    setRecipes(data.recipes);
-    setSpinnerIsShown(false);
-  }, [dietFilter, mealTypeFilter]);
-
-  useEffect(() => {
-    getRecipes();
-  }, [getRecipes]);
-
-  const resetFilterHandler = () => {
-    setDietFilter("");
-    setMealTypeFilter("");
-  };
-
   return (
     <>
       <section>
         <PageTitle title="Popular" />
-
         <div className="filter-actions">
           <PrimaryButton
             className="filter-actions__btn"

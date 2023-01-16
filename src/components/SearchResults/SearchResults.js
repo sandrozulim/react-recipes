@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PageTitle from "../PageTitle/PageTitle";
 import RecipesList from "../RecipesList/RecipesList";
 import Spinner from "../UI/Spinner";
 import InputField from "../UI/InputField";
 import PrimaryButton from "../UI/PrimaryButton";
 import Pagination from "../UI/Pagination";
-import { getData } from "../../http/getData.js";
+import useGetRecipes from "../../hooks/use.get.recipes";
 import { SEARCH_ENDPOINT } from "../../constants/api.constants";
 import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
@@ -13,48 +13,42 @@ import { FaSistrix } from "react-icons/fa";
 import "./SearchResults.scss";
 
 function SearchResults() {
-  const [recipes, setRecipes] = useState([]);
   const [page, setPage] = useState(1);
-  const [spinnerIsShown, setSpinnerIsShown] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const searchInputRef = useRef(null);
 
-  const getRecipes = useCallback(async () => {
-    if (inputValue === "") return;
-    setSpinnerIsShown(true);
-    const url = apiUrlBuilder(`${SEARCH_ENDPOINT}&query=${inputValue}`);
-    const { results } = await getData(url);
-    setRecipes(results);
-    setSpinnerIsShown(false);
-  }, [inputValue]);
+  const url = apiUrlBuilder(`${SEARCH_ENDPOINT}&query=${searchQuery}`);
+  const { recipes, spinnerIsShown } = useGetRecipes(url);
+
+  const submitSearchQueryHandler = () => {
+    setSearchQuery(inputValue);
+  };
 
   useEffect(() => {
     searchInputRef.current.focus();
-    getRecipes();
-  }, [getRecipes]);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const { value } = searchInputRef.current;
-    setInputValue(value);
-  };
+  }, []);
 
   return (
     <section>
       <PageTitle title="Search recipes" />
 
-      <form className="search-form">
+      <div className="search">
         <InputField
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           ref={searchInputRef}
-          className="search-input__input"
           type="text"
           placeholder="Search here..."
           icon={<FaSistrix />}
         />
-        <PrimaryButton onClick={submitHandler} className="search-form__btn">
+        <PrimaryButton
+          className="search__btn"
+          onClick={submitSearchQueryHandler}
+        >
           Search
         </PrimaryButton>
-      </form>
+      </div>
 
       {spinnerIsShown && <Spinner />}
 

@@ -10,6 +10,7 @@ import { FavoritesContextProvider } from "./store/favorites-context";
 function App() {
   return (
     <>
+      y
       <Header />
       <main>
         <FavoritesContextProvider>
