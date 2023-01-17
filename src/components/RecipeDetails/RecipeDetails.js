@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Modal from "../UI/Modal";
+import RecipeDetailsActions from "../RecipeDetailsActions/RecipeDetailsActions";
 import PrimaryButton from "../UI/PrimaryButton";
+import Modal from "../UI/Modal";
+import { numToTwoDecimals } from "../../utilites/generic.utils";
 import { GrClose } from "react-icons/gr";
 import "./RecipeDetails.scss";
-import RecipeDetailsActions from "../RecipeDetailsActions/RecipeDetailsActions";
 
 function RecipeDetails({ recipe, onCloseHandler }) {
   const [ingredients, setIngredients] = useState(recipe.extendedIngredients);
@@ -26,16 +27,16 @@ function RecipeDetails({ recipe, onCloseHandler }) {
 
   const updateIngredients = (operator, servings) => {
     const updatedIngredients = ingredients.map((ingredient) => {
-      const perPerson = ingredient.amount / servings;
+      const perPerson = numToTwoDecimals(ingredient.amount / servings);
       if (operator === "plus") {
         return {
           ...ingredient,
-          amount: Math.ceil(ingredient.amount + perPerson),
+          amount: numToTwoDecimals(ingredient.amount + perPerson),
         };
       } else {
         return {
           ...ingredient,
-          amount: Math.floor(ingredient.amount - perPerson),
+          amount: numToTwoDecimals(ingredient.amount - perPerson),
         };
       }
     });
