@@ -1,26 +1,35 @@
 import { useState, useEffect, useCallback } from "react";
-import { getData } from "../http/getData";
 
-const useGetRecipes = (url) => {
-  const [recipes, setRecipes] = useState([]);
-  const [spinnerIsShown, setSpinnerIsShown] = useState(false);
+const useGetData = (url) => {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const getRecipes = useCallback(async () => {
-    setSpinnerIsShown(true);
-    const data = await getData(url);
-    const [results] = Object.keys(data);
-    setRecipes(data[results]);
-    setSpinnerIsShown(false);
+  const getData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error();
+      const data = await response.json();
+      const [results] = Object.keys(data);
+      setData(data[results]);
+    } catch (error) {
+      setError("Something went wrong!");
+    }
+
+    setIsLoading(false);
   }, [url]);
 
   useEffect(() => {
-    getRecipes();
-  }, [getRecipes]);
+    getData();
+  }, [getData]);
 
   return {
-    recipes,
-    spinnerIsShown,
+    data,
+    isLoading,
+    error,
+    setError,
   };
 };
 
-export default useGetRecipes;
+export default useGetData;

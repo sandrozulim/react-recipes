@@ -5,7 +5,8 @@ import Spinner from "../UI/Spinner";
 import InputField from "../UI/InputField";
 import PrimaryButton from "../UI/PrimaryButton";
 import Pagination from "../UI/Pagination";
-import useGetRecipes from "../../hooks/use.get.recipes";
+import useGetData from "../../hooks/use.get.recipes";
+import ErrorModal from "../UI/ErrorModal";
 import { SEARCH_ENDPOINT } from "../../constants/api.constants";
 import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
@@ -19,10 +20,15 @@ function SearchResults() {
   const searchInputRef = useRef(null);
 
   const url = apiUrlBuilder(`${SEARCH_ENDPOINT}&query=${searchQuery}`);
-  const { recipes, spinnerIsShown } = useGetRecipes(url);
+  const { data, isLoading, error, setError } = useGetData(url);
 
   const submitSearchQueryHandler = () => {
+    if (inputValue.trim() === "") setError("Cannot search empty field!");
     setSearchQuery(inputValue);
+  };
+
+  const closeErrorModalHandler = () => {
+    setError(null);
   };
 
   useEffect(() => {
@@ -32,6 +38,10 @@ function SearchResults() {
   return (
     <section>
       <PageTitle title="Search recipes" />
+
+      {error && (
+        <ErrorModal onClose={closeErrorModalHandler}>{error}</ErrorModal>
+      )}
 
       <div className="search">
         <InputField
@@ -50,17 +60,17 @@ function SearchResults() {
         </PrimaryButton>
       </div>
 
-      {spinnerIsShown && <Spinner />}
+      {isLoading && <Spinner />}
 
       <RecipesList
-        data={recipes.slice(
+        data={data.slice(
           page * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
           page * ITEMS_PER_PAGE
         )}
       />
 
-      {recipes.length > ITEMS_PER_PAGE && (
-        <Pagination page={page} setPage={setPage} dataArray={recipes} />
+      {data.length > ITEMS_PER_PAGE && (
+        <Pagination page={page} setPage={setPage} dataArray={data} />
       )}
     </section>
   );

@@ -1,0 +1,52 @@
+@use "../../sass/abstracts";
+
+.error-modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+}
+
+.error-modal {
+  @include abstracts.flex(column, center, center, nowrap);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: abstracts.$bg-secondary;
+  padding: 2rem;
+  z-index: 100;
+  width: 30%;
+  min-width: 20rem;
+  min-height: 20rem;
+  border-radius: 8px;
+
+  &__icon {
+    font-size: 3rem;
+    color: abstracts.$bg-tertiary;
+  }
+
+  &__msg {
+    font-size: 1.3rem;
+  }
+
+  &__btn {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    background-color: unset;
+    border: none;
+    box-shadow: none;
+    font-size: 2.2rem;
+    color: abstracts.$text-primary;
+    transition: all 250ms;
+    &:hover,
+    &:active {
+      color: abstracts.$bg-tertiary;
+    }
+  }
+}

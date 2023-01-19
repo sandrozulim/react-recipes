@@ -9,8 +9,9 @@ import { BsFilter } from "react-icons/bs";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
 import { POPULAR_ENDPOINT } from "../../constants/api.constants";
 import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
-import useGetRecipes from "../../hooks/use.get.recipes";
+import useGetData from "../../hooks/use.get.recipes";
 import "./Popular.scss";
+import ErrorModal from "../UI/ErrorModal";
 
 function Popular() {
   const [dietFilter, setDietFilter] = useState("");
@@ -24,11 +25,15 @@ function Popular() {
     }`
   );
 
-  const { recipes, spinnerIsShown } = useGetRecipes(url);
+  const { data, isLoading, error, setError } = useGetData(url);
 
   const resetFilterHandler = () => {
     setDietFilter("");
     setMealTypeFilter("");
+  };
+
+  const closeErrorModalHandler = () => {
+    setError(null);
   };
 
   const diets = ["gluten free", "vegetarian", "vegan"];
@@ -47,6 +52,7 @@ function Popular() {
     <>
       <section>
         <PageTitle title="Popular" />
+
         <div className="filter-actions">
           <PrimaryButton
             className="filter-actions__btn"
@@ -85,17 +91,21 @@ function Popular() {
           </div>
         )}
 
-        {spinnerIsShown && <Spinner />}
+        {isLoading && <Spinner />}
+
+        {error && (
+          <ErrorModal onClose={closeErrorModalHandler}>{error}</ErrorModal>
+        )}
 
         <RecipesList
-          data={recipes.slice(
+          data={data.slice(
             page * ITEMS_PER_PAGE - ITEMS_PER_PAGE,
             page * ITEMS_PER_PAGE
           )}
         />
 
-        {recipes.length > ITEMS_PER_PAGE && (
-          <Pagination page={page} setPage={setPage} dataArray={recipes} />
+        {data.length > ITEMS_PER_PAGE && (
+          <Pagination page={page} setPage={setPage} dataArray={data} />
         )}
       </section>
     </>
