@@ -5,7 +5,7 @@ import Spinner from "../UI/Spinner";
 import InputField from "../UI/InputField";
 import PrimaryButton from "../UI/PrimaryButton";
 import Pagination from "../UI/Pagination";
-import useGetData from "../../hooks/use.get.recipes";
+import useGetData from "../../hooks/useGetData";
 import ErrorModal from "../UI/ErrorModal";
 import { SEARCH_ENDPOINT } from "../../constants/api.constants";
 import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
@@ -22,7 +22,8 @@ function SearchResults() {
   const url = apiUrlBuilder(`${SEARCH_ENDPOINT}&query=${searchQuery}`);
   const { data, isLoading, error, setError } = useGetData(url);
 
-  const submitSearchQueryHandler = () => {
+  const submitSearchQueryHandler = (e) => {
+    e.preventDefault();
     if (inputValue.trim() === "") setError("Cannot search empty field!");
     setSearchQuery(inputValue);
   };
@@ -43,7 +44,7 @@ function SearchResults() {
         <ErrorModal onClose={closeErrorModalHandler}>{error}</ErrorModal>
       )}
 
-      <div className="search">
+      <form onSubmit={submitSearchQueryHandler} className="search">
         <InputField
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -52,13 +53,8 @@ function SearchResults() {
           placeholder="Search here..."
           icon={<FaSistrix />}
         />
-        <PrimaryButton
-          className="search__btn"
-          onClick={submitSearchQueryHandler}
-        >
-          Search
-        </PrimaryButton>
-      </div>
+        <PrimaryButton className="search__btn">Search</PrimaryButton>
+      </form>
 
       {isLoading && <Spinner />}
 

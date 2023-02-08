@@ -10,10 +10,6 @@ function Recipe({ recipe }) {
     setDetailsIsOpen(true);
   };
 
-  const closeDetailHandler = () => {
-    setDetailsIsOpen(false);
-  };
-
   return (
     <>
       <li onClick={openDetailsHandler} className="recipe">
@@ -31,7 +27,7 @@ function Recipe({ recipe }) {
       </li>
 
       {detailsIsOpen && (
-        <RecipeDetails onCloseHandler={closeDetailHandler} recipe={recipe} />
+        <RecipeDetails setDetailsIsOpen={setDetailsIsOpen} recipe={recipe} />
       )}
     </>
   );

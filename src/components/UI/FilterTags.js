@@ -1,19 +1,27 @@
-import React from "react";
+import { useState } from "react";
 import PrimaryButton from "./PrimaryButton";
+import { BsFilter } from "react-icons/bs";
 import "./FilterTags.scss";
 
-function FilterTags({ tagList, state, setState, title, setToggleFilters }) {
+function FilterTags({ tagList, title, selectedTag, setSelectedTag }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const changeTagHandler = (e) => {
-    setState(e.target.innerText);
-    setToggleFilters(false);
+    setSelectedTag(e.target.innerText);
+    setIsExpanded(false);
   };
 
-  const tags = tagList.map((item, index) => {
+  const clearFilterHandler = () => {
+    setSelectedTag("");
+    setIsExpanded(false);
+  };
+
+  const tagsContent = tagList.map((item) => {
     return (
-      <li key={index}>
+      <li key={item}>
         <PrimaryButton
           className={`filter-options__btn ${
-            state === item ? "filter-options__btn--active" : ""
+            selectedTag === item ? "filter-options__btn--active" : ""
           }`}
           onClick={changeTagHandler}
         >
@@ -24,10 +32,35 @@ function FilterTags({ tagList, state, setState, title, setToggleFilters }) {
   });
 
   return (
-    <ul className="filter-options">
-      {<h4 className="filter-options__title">{title}</h4>}
-      {tags}
-    </ul>
+    <>
+      <div className="filter-actions">
+        <PrimaryButton
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="filter-actions__btn"
+        >
+          Filters
+          <BsFilter />
+        </PrimaryButton>
+
+        {isExpanded && (
+          <PrimaryButton
+            onClick={clearFilterHandler}
+            className="filter-actions__btn"
+          >
+            Clear
+          </PrimaryButton>
+        )}
+      </div>
+
+      {isExpanded && (
+        <>
+          <ul className="filter-options">
+            <h4 className="filter-options__title">{title}</h4>
+            {tagsContent}
+          </ul>
+        </>
+      )}
+    </>
   );
 }
 

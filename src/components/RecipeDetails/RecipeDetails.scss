@@ -1,7 +1,6 @@
 @use "../../sass/abstracts";
 
 .recipe-details {
-  @include abstracts.flex(column, flex-start, flex-start, nowrap);
   background-color: abstracts.$bg-primary;
   position: relative;
   height: 100%;
@@ -9,11 +8,10 @@
   overflow: auto;
 
   h3 {
-    width: 100%;
-    font-size: 1.5rem;
+    font-size: 1.7rem;
     letter-spacing: 1px;
-    color: abstracts.$bg-secondary;
     text-align: center;
+    color: abstracts.$bg-secondary;
   }
 
   &__close-btn {
@@ -23,66 +21,30 @@
     z-index: 30;
   }
 
-  img {
-    object-fit: cover;
+  &__img {
     width: 100%;
-    height: 14rem;
-    @media screen and (min-width: 900px) {
-      margin: 0 auto;
-      width: 40rem;
-    }
+    display: block;
   }
 
   &__title {
     position: absolute;
     background-color: abstracts.$bg-dark-transparent;
-    width: 80%;
-    top: 30px;
-    left: 10%;
+    width: 100%;
+    top: 60px;
     text-align: center;
     color: abstracts.$bg-primary;
     font-size: 1.7rem;
     padding: 1rem;
-    transform: rotate(-2deg);
   }
 
-  /*  &__actions {
-    @include abstracts.flex(row, space-around, center, wrap);
-    background-color: abstracts.$bg-tertiary;
-    width: 100%;
-    padding: 0.8rem;
-    gap: 2rem;
-    color: abstracts.$bg-primary;
-    font-size: 1.2rem;
-
-    span {
-      @include abstracts.flex(row, center, center, nowrap);
-      gap: 0.2rem;
-    }
-
-    &-servings {
-      @include abstracts.flex(row, center, center, nowrap);
-      gap: 0.4rem;
-
-      &-btn {
-        padding: 0.3rem;
-        border: none;
-        background-color: abstracts.$bg-secondary;
-        font-size: 1.4rem;
-      }
-    }
-
-    &-save-btn {
-      background-color: abstracts.$bg-secondary;
-    }
-  } */
-
   &__ingredients {
+    width: 100%;
+  }
+
+  &__ingredients-list {
     @include abstracts.flex(column, flex-start, flex-start, nowrap);
     gap: 1rem;
-    width: 100%;
-    padding: 2rem 0;
-    list-style-type: none;
+    margin: 2rem 0;
 
     li {
       @include abstracts.flex(row, flex-start, center, nowrap);
@@ -90,7 +52,6 @@
       background-color: abstracts.$bg-tertiary-light;
       width: 100%;
       padding: 0 2rem;
-      border-radius: 6px;
 
       span {
         font-size: 1.2rem;
@@ -101,16 +62,13 @@
   }
 
   &__instructions {
-    width: 100%;
     padding: 2rem 4rem;
     background-color: abstracts.$bg-tertiary-light;
 
     p {
-      margin: 0.6rem 0;
       text-align: justify;
       font-size: 1.2rem;
-      line-height: 2rem;
-      font-weight: 500;
+      line-height: 1.8rem;
     }
   }
 }

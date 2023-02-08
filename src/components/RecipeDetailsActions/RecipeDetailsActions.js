@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import FavoritesContext from "../../store/favorites-context";
 import PrimaryButton from "../UI/PrimaryButton";
+import { numToTwoDecimals } from "../../utilites/generic.utils";
 import { BsFillPeopleFill } from "react-icons/bs";
 import {
   AiFillClockCircle,
@@ -10,42 +11,54 @@ import {
 } from "react-icons/ai";
 import "./RecipeDetailsActions.scss";
 
-function RecipeDetailsActions({ recipe, updateIngredients }) {
+function RecipeDetailsActions({ recipe, ingredients, setIngredients }) {
   const [servings, setServings] = useState(recipe.servings);
   const ctx = useContext(FavoritesContext);
 
   const incrementServings = () => {
-    if (servings > 12) return;
-    setServings((prevState) => prevState + 1);
-    updateIngredients("plus", servings);
+    setServings((previous) => previous + 1);
+
+    const updatedIngredients = ingredients.map((ingredient) => {
+      const ingredientPerPerson = ingredient.amount / servings;
+      const newIngredientAmount = numToTwoDecimals(
+        ingredient.amount + ingredientPerPerson
+      );
+      return { ...ingredient, amount: newIngredientAmount };
+    });
+
+    setIngredients(updatedIngredients);
   };
 
   const decrementServings = () => {
     if (servings <= 1) return;
-    setServings((prevState) => prevState - 1);
-    updateIngredients("minus", servings);
+
+    setServings((previous) => previous - 1);
+
+    const updatedIngredients = ingredients.map((ingredient) => {
+      const ingredientPerPerson = ingredient.amount / servings;
+      const newIngredientAmount = numToTwoDecimals(
+        ingredient.amount - ingredientPerPerson
+      );
+      return { ...ingredient, amount: newIngredientAmount };
+    });
+
+    setIngredients(updatedIngredients);
   };
 
-  const saveButton = ctx.favorites.find((item) => item.id === recipe.id) ? (
-    <PrimaryButton
-      onClick={() => ctx.removeFavoritesHandler(recipe.id)}
-      className="actions__btn"
-    >
-      <AiFillHeart />
-      Remove
-    </PrimaryButton>
-  ) : (
-    <PrimaryButton
-      onClick={() => ctx.addFavoritesHandler(recipe)}
-      className="actions__btn"
-    >
-      <AiFillHeart />
-      Save
-    </PrimaryButton>
-  );
+  let saveButtonText;
+  let saveButtonHandler;
+  const isAlreadyFavorite = ctx.favorites.find((item) => item.id === recipe.id);
+
+  if (isAlreadyFavorite) {
+    saveButtonText = "Remove";
+    saveButtonHandler = () => ctx.removeFavoritesHandler(recipe.id);
+  } else {
+    saveButtonText = "Save";
+    saveButtonHandler = () => ctx.addFavoritesHandler(recipe);
+  }
 
   return (
-    <div className="actions">
+    <section className="actions">
       <span>
         <AiFillClockCircle />
         {recipe.readyInMinutes}
@@ -64,8 +77,12 @@ function RecipeDetailsActions({ recipe, updateIngredients }) {
           <AiOutlineMinus />
         </PrimaryButton>
       </div>
-      {saveButton}
-    </div>
+
+      <PrimaryButton onClick={saveButtonHandler} className="actions__btn">
+        <AiFillHeart />
+        {saveButtonText}
+      </PrimaryButton>
+    </section>
   );
 }
 

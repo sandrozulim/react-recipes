@@ -1,44 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../Navbar/Navbar";
-import Sidebar from "../Sidebar/Sidebar";
-import PrimaryButton from "../UI/PrimaryButton";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { GrClose } from "react-icons/gr";
 import "./Header.scss";
 
 function Header() {
-  const [toggleSidebar, setToggleSidebar] = useState(false);
-
-  const navigationList = [
-    { name: "home", path: "/" },
-    { name: "search recipes", path: "/search" },
-    { name: "popular", path: "/popular" },
-    { name: "favorites", path: "/favorites" },
-  ];
-
   return (
     <>
       <header className="header">
-        <div className="header__title">
-          <h1>React</h1>
-          <h1 className="header__title--green">Recipes</h1>
+        <div className="header-title">
+          <h1 className="header-title__heading">React</h1>
+          <h1 className="header-title__heading header-title__heading--green">
+            Recipes
+          </h1>
         </div>
-
-        <Navbar className="header__nav" navigationList={navigationList} />
-
-        <PrimaryButton
-          className="header__hamburger"
-          onClick={() => setToggleSidebar(!toggleSidebar)}
-        >
-          {toggleSidebar ? <GrClose /> : <GiHamburgerMenu />}
-        </PrimaryButton>
+        <Navbar />
       </header>
-
-      <Sidebar
-        navigationList={navigationList}
-        toggleSidebar={toggleSidebar}
-        setToggleSidebar={setToggleSidebar}
-      />
     </>
   );
 }

@@ -5,27 +5,60 @@
   gap: 3rem;
   padding: 0;
   font-weight: bold;
+  @media screen and (max-width: 900px) {
+    display: none;
+  }
 
-  &__item {
-    cursor: pointer;
-    list-style-type: none;
-    transition: all 250ms;
-    font-weight: bold;
-    text-transform: uppercase;
+  &--expanded {
+    @include abstracts.flex(column, flex-start, center, nowrap);
+    gap: 2rem;
+    position: fixed;
+    top: 7rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    padding-top: 2rem;
+    background-color: abstracts.$bg-primary;
 
-    a {
-      all: unset;
+    li {
+      background-color: abstracts.$bg-tertiary-light;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0px 1px 6px -2px abstracts.$text-primary;
+      padding: 2rem;
+      letter-spacing: 2px;
     }
   }
 
-  &__item:hover {
-    color: abstracts.$bg-secondary;
-    transform: scale(1.2);
+  &__hamburger {
+    display: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.2rem 0.2rem;
+    font-size: 1.7rem;
+    background-color: abstracts.$bg-primary;
+    &:hover,
+    &:active {
+      color: abstracts.$bg-secondary;
+    }
+    @media screen and (max-width: 900px) {
+      margin-left: auto;
+      display: flex;
+    }
   }
+}
 
-  .active {
+.link {
+  text-transform: uppercase;
+  transition: all 250ms;
+  font-weight: bold;
+  &:hover {
     color: abstracts.$bg-secondary;
-    transform: scale(1.2);
-    border-bottom: 1px solid abstracts.$bg-secondary;
   }
+}
+
+.link--active {
+  color: abstracts.$bg-secondary;
+  border-bottom: 1px solid abstracts.$bg-secondary;
 }

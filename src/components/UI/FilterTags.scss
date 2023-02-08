@@ -1,18 +1,34 @@
 @use "../../sass/abstracts";
 
+.filter-actions {
+  @include abstracts.flex(row, center, center, nowrap);
+  margin: 1rem 0;
+  gap: 2rem;
+
+  &__btn {
+    background-color: abstracts.$bg-secondary;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+
+    &-icon {
+      font-size: 1.5rem;
+    }
+  }
+}
+
 .filter-options {
   @include abstracts.flex(column, center, center, wrap);
-  list-style-type: none;
-  padding: 0;
-  display: inline-flex;
   gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  background-color: abstracts.$bg-tertiary-light;
 
   &__title {
-    margin: 1rem 0;
-    font-size: 1.2rem;
     text-transform: uppercase;
+    font-size: 1.2rem;
+    margin: 1rem 0;
+    padding-bottom: 0.3rem;
     border-bottom: 2px solid black;
-    padding: 0 0.4rem;
   }
 
   &__btn {
@@ -26,6 +42,7 @@
   }
 
   &__btn--active {
+    font-weight: bold;
     color: abstracts.$bg-secondary;
   }
 }
