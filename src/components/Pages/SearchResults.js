@@ -12,20 +12,23 @@ import { ITEMS_PER_PAGE } from "../../constants/pagination.constants";
 import { apiUrlBuilder } from "../../utilites/generic.utils";
 import { FaSistrix } from "react-icons/fa";
 import "./SearchResults.scss";
+import { useSearchParams } from "react-router-dom";
 
 function SearchResults() {
   const [page, setPage] = useState(1);
-  const [inputValue, setInputValue] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
   const searchInputRef = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [inputValue, setInputValue] = useState("");
 
-  const url = apiUrlBuilder(`${SEARCH_ENDPOINT}&query=${searchQuery}`);
+  const url = apiUrlBuilder(
+    `${SEARCH_ENDPOINT}&query=${searchParams.get("query")}`
+  );
+
   const { data, isLoading, error, setError } = useGetData(url);
 
-  const submitSearchQueryHandler = (e) => {
+  const inputSubmitHandler = (e) => {
     e.preventDefault();
-    if (inputValue.trim() === "") setError("Cannot search empty field!");
-    setSearchQuery(inputValue);
+    setSearchParams({ query: inputValue });
   };
 
   const closeErrorModalHandler = () => {
@@ -44,7 +47,7 @@ function SearchResults() {
         <ErrorModal onClose={closeErrorModalHandler}>{error}</ErrorModal>
       )}
 
-      <form onSubmit={submitSearchQueryHandler} className="search">
+      <form onSubmit={inputSubmitHandler} className="search">
         <InputField
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
