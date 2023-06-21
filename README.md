@@ -1,6 +1,7 @@
 ## React recipes 
+
 -Simple app for searching recipes by fetching data from spoonacular API.   
--Built with React.js and Sass. 
+-My first finished project using React.
 -great opportunity for me to sharpen my skills with creating reusable components, hooks, conditional rendering, router package..   
 -Tried to make data flow between components easy to understand.  
 
